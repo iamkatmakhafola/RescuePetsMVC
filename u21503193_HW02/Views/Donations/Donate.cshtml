@@ -1,0 +1,82 @@
+﻿@model u21503193_HW02.VIewModels.DonationVM
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Donate</title>
+        <link rel="stylesheet" href="~/css/donations.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Donate now! Help us reach our goal!</h2>
+                    <br/>
+                    <h4>Why Donate?</h4>
+                    <p>By making a donation to RescuePets, you are contributing to a noble cause that directly impacts the lives of animals and their families. 
+                        Your support enables us to provide shelter, food, and essential medical care to pets in need.
+                        It's a chance to make a positive difference by ensuring a brighter and healthier future for our furry friends. 
+                        Join us in our mission to rescue, care for, and protect pets, and together, we can create a world where every pet finds a loving home.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <form asp-action="Donate" method="post" class="my-form">
+                                <div class="form-group">
+                                    <label asp-for="FullName" class="control-label">Full Name</label>
+                                    <select asp-for="FullName" class="form-control" id="SelectedFullName">
+                                        <option value="">Select a Full Name</option>
+                                        @foreach (var fullName in Model.FullNames)
+                                        {
+                                            var phoneNumber = Model.PhoneNumbers
+                                            .FirstOrDefault(f => f.Value == fullName.Value)?.Text;
+
+                                            <option value="@fullName.Value" data-phonenumber="@phoneNumber">@fullName.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
+                                    <select asp-for="PhoneNumber" class="form-control" id="SelectedPhoneNumber">
+                                        <option value="">Select a Phone Number</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="DonationAmount" class="control-label">Donation Amount</label>
+                                    <input asp-for="DonationAmount" class="form-control" />
+                                </div>
+                                <button type="submit" class="btn btn-primary">Make Donation</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p>@string.Format("R{0} towards our cause!", Model.TotalAmountRaised.ToString())</p>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @Model.PercentageCompleted%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            @string.Format("Goal: R{0}", Model.GoalAmount.ToString())
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                    <img src="/images/thanks.jpeg" />
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/donations.js"></script>
+

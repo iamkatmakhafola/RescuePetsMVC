@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Adopt</title>
+        <link rel="stylesheet" href="~/css/pets.css">
+    </head>
+
+    <body>
+        @model u21503193_HW02.VIewModels.AdoptedPetVM
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="@Model.Pet.ImageUrl" alt="Pet Image" class="img-fluid" />
+                </div>
+                <div class="col-md-8">
+                    <h2>@Model.Pet.Name</h2>
+                    <p>Location: @Model.Pet.Location</p>
+                    <p>Age: @Model.Pet.Age</p>
+                    <p>Weight: @Model.Pet.Weight</p>
+                    <p>Gender: @Model.Pet.Gender</p>
+                    <h4>Pet Story</h4>
+                    <p>@Model.Pet.PetStory</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h4>Details</h4>
+                    <form>
+                        <div class="form-group">
+                            <label asp-for="SelectedUserFullName" class="control-label">Full Name</label>
+                            <select asp-for="SelectedUserFullName" class="form-control">
+                                <option value="">Select a Full Name</option>
+                                @foreach (var user in Model.UserFullNames)
+                                {
+                                    var phoneNumber = Model.UserPhoneNumbers
+                                    .FirstOrDefault(p => p.Value == user.Value)?.Text;
+
+                                    <option value="@user.Value" data-phonenumber="@phoneNumber">@user.Text</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SelectedUserPhoneNumber" class="control-label">Phone Number</label>
+                            <select asp-for="SelectedUserPhoneNumber" class="form-control" id="SelectedUserPhoneNumber">
+                                <option value="">Select a Phone Number</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary">Adopt Now!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/adoptPet.js"></script>
+

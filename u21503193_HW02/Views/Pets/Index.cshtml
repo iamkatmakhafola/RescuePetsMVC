@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pets</title>
+        <link rel="stylesheet" href="~/css/pets.css">
+    </head>
+
+    <body>
+
+        @model u21503193_HW02.VIewModels.PetsFilterVM
+
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="typeDropdown">Type:</label>
+                    <select id="typeDropdown" class="form-control">
+                        <option value="">All</option>
+                        @foreach (var type in Model.Types)
+                        {
+                            <option value="@type">@type</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="breedDropdown">Breed:</label>
+                    <select id="breedDropdown" class="form-control">
+                        <option value="">All</option>
+                    @foreach (var breed in Model.Breeds)
+                    {
+                        <option value="@breed">@breed</option>
+                    }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="locationDropdown">Location:</label>
+                    <select id="locationDropdown" class="form-control">
+                        <option value="">All</option>
+                        @foreach (var location in Model.Locations)
+                        {
+                            <option value="@location">@location</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" id="searchButton" class="btn btn-primary">Search</button>
+                    <button id="clearButton" class="btn btn-secondary">Clear</button>
+                </div>
+            </div>
+
+            <div id="petsList" class="row mt-4">
+                @foreach (var pet in Model.Pets)
+                {
+                    <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="pet-list-item"
+                                     data-pet-type="@pet.Type"
+                                     data-pet-breed="@pet.Breed"
+                                     data-pet-location="@pet.Location">
+
+                                    <img src="@pet.ImageUrl" class="card-img-top" style="width:40%; height:40%" />
+
+                                    @if (pet.Status == "Available")
+                                    {
+                                        <div class="card-body">
+                                            <button type="button" class="btn btn-warning"> @pet.Status</button>
+                                            <h5 class="card-title">@pet.Name</h5>
+                                            <p class="card-text">
+                                                Location: @pet.Location<br>
+                                                Age: @pet.Age<br>
+                                                Gender: @pet.Gender<br>
+                                                Weight: @pet.Weight
+                                            </p>
+                                            <h5>Pet Story</h5>
+                                            <p class="card-text">@pet.PetStory</p>
+
+                                            <a href="@Url.Action("AdoptPet", "Pets", new { id = pet.Id } )" class="btn btn-primary">VIEW</a>
+                                            <p class="card-text">Posted by: @pet.UserName</p>
+                                        </div>
+                                    }
+                                    @if (pet.Status == "Adopted")
+                                    {
+                                        <div class="card-body">
+                                            <button type="button" class="btn btn-success"> @pet.Status</button> on @pet.CreatedDate
+                                            <h5 class="card-title">@pet.Name</h5>
+                                            <p class="card-text">
+                                                Location: @pet.Location<br>
+                                                Age: @pet.Age<br>
+                                                Gender: @pet.Gender<br>
+                                                Weight: @pet.Weight
+                                            </p>
+                                            <h6>Pet Story</h6>
+                                            <p class="card-text">@pet.PetStory</p>
+                                            <p class="card-text">Posted by: @pet.UserName</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/pets.js"></script>

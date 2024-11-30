@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Post</title>
+        <link rel="stylesheet" href="~/css/pets.css">
+    </head>
+
+    <body>
+        @model u21503193_HW02.VIewModels.PostPetVM
+
+        <h1>Post a Pet</h1>
+
+        <form method="post" asp-action="PostPet">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>User Details</h3>
+                    <div class="form-group">
+                        <label asp-for="SelectedUserFullName" class="control-label">Full Name</label>
+                        <select asp-for="SelectedUserFullName" class="form-control">
+                            <option value="">Select a Full Name</option>
+                            @foreach (var user in Model.UserFullNames)
+                            {
+                                var phoneNumber = Model.UserPhoneNumbers
+                                .FirstOrDefault(p => p.Value == user.Value)?.Text;
+
+                                <option value="@user.Value" data-phonenumber="@phoneNumber">@user.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SelectedUserPhoneNumber" class="control-label">Phone Number</label>
+                        <select asp-for="SelectedUserPhoneNumber" class="form-control" id="SelectedUserPhoneNumber">
+                            <option value="">Select a Phone Number</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h3>Pet Details</h3>
+                    <div class="form-group">
+                        <label asp-for="PetName" class="control-label">Pet Name</label>
+                        <input asp-for="PetName" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SelectedPetType" class="control-label">Pet Type</label>
+                        <select asp-for="SelectedPetType" class="form-control" id="SelectedPetType">
+                            <option value="">Select a Pet Type</option>
+                            <option value="Dog">Dog</option>
+                            <option value="Cat">Cat</option>
+                            <option value="Bird">Bird</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SelectedPetBreed" class="control-label">Pet Breed</label>
+                        <select asp-for="SelectedPetBreed" class="form-control" id="SelectedPetBreed">
+                            <option value="">Select a Pet Breed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SelectedPetLocation" class="control-label">Location</label>
+                        <select asp-for="SelectedPetLocation" id="SelectedPetLocation" class="form-control" asp-items="Model.PetLocations">
+                            <option value="">Select a Location</option>
+                            <option value="Gauteng">Gauteng</option>
+                            <option value="Durban">Durban</option>
+                            <option value="Cape Town">Cape Town</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+                    <h3></h3>
+                    <div class="form-group">
+                        <label asp-for="Age" class="control-label">Age</label>
+                        <input asp-for="Age" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Weight" class="control-label">Weight</label>
+                        <input asp-for="Weight" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SelectedPetGender" class="control-label">Gender</label>
+                        <select asp-for="SelectedPetGender" id="SelectedPetGender" class="form-control" asp-items="Model.PetGenders">
+                            <option value="">Select a Pet Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PetImage" class="control-label">Upload Pet Image</label>
+                        <input asp-for="PetImage" type="file" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Post Pet</button>
+
+        </form>
+
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success">
+                @ViewBag.SuccessMessage
+            </div>
+        }
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+    </body>
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/postPet.js"></script>

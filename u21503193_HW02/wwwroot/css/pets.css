@@ -1,0 +1,45 @@
+﻿/* Pets page css */
+
+/* Style for the filtering controls */
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+    .filter-controls select {
+        width: 100%;
+        max-width: 200px;
+        padding: 5px;
+    }
+
+/* Style for the pet list */
+.pet-list-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start; /* Align items at the top within the card */
+}
+
+    .pet-list-item img {
+        max-width: 100%;
+        height: auto;
+        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+
+/* Style for pet details */
+.pet-details {
+    flex-grow: 1;
+}
+
+/* Style for buttons */
+.view-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}

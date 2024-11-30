@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="~/css/site.css">
+    </head>
+    <body class="background">
+        @model u21503193_HW02.VIewModels.HomeVM
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Welcome to RescuePets</h2>
+                    <p class="display-4">Find your new furry friend today!</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <h3>Pets Homed: <span id="adoptedPetsCount">@Model.AdoptedPetCount</span></h3>
+                    <div class="card">
+                        <div class="card-header">
+                            People Who Adopted Pets
+                        </div>
+                        <ul class="list-group list-group-flush" id="adoptedPetsList" style="overflow:scroll">
+                            @foreach (var adoptionInfo in Model.AdoptedPets)
+                            {
+                                <li class="list-group-item">@adoptionInfo.UserName adopted @adoptionInfo.PetName</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4 text-center">
+                    <img src="~/images/pet1.jpg" alt="Pet Image" class="img-fluid rounded-circle">
+                </div>
+
+                <div class="col-md-4">
+                    <h5>What we do?</h5>
+
+                    <p>
+                        RescuePets is dedicated to helping pets find loving homes. Our mission is to connect
+                        adopters with pets in need, creating happy families and forever homes.
+                    </p>
+                    <a href="@Url.Action("Index", "Pets")" class="btn btn-primary">View Pets</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
